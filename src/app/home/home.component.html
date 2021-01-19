@@ -1,0 +1,83 @@
+<div style="text-align: center;">
+
+    <h2>Sistema de una Escuela</h2>
+    <button type="button" class="btn btn-success"(click)="open(content)">Nuevo Alumno</button>
+  
+    <table class = "table">
+      <thead>
+        <tr>
+          <th>Matricula</th>
+          <th>Nombre</th>
+          <th>Edad</th>
+          <th>Sexo</th>
+          <th>Correo</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <tr *ngFor = "let item of collection.data | paginate: config">
+          <td>{{item.id}}</td>
+          <td>{{item.nombre}}</td>
+          <td>{{item.edad}}</td>
+          <td>{{item.sexo}}</td>
+          <td>{{item.correo}}</td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="openEditar(content,item)">Editar</button>
+            <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange) = "pageChanged($event)"></pagination-controls>
+  
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nuevo Alumno</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+           
+            <form [formGroup] = "alumnoForm">
+  
+              <div class = "form-group">
+                <label >Matricula</label>
+                <input type="number" formControlName="id" class="form-control">
+              </div>
+  
+              <div class = "form-group">
+                <label >Nombre</label>
+                <input type="text" formControlName="nombre" class="form-control">
+              </div>
+  
+              <div class = "form-group">
+                <label >Edad</label>
+                <input type="number" formControlName="edad" class="form-control">
+              </div>
+  
+              <div class = "form-group">
+                <label >Sexo</label>
+                <input type="text" formControlName="sexo" class="form-control">
+              </div>
+  
+              <div class = "form-group">
+                <label >Correo</label>
+                <input type="String" formControlName="correo" class="form-control">
+              </div>
+  
+            </form>
+  
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="guardarAlumno()" *ngIf="!actualizar">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="actualizarAlumno()" *ngIf="actualizar">Actualizar</button>
+      </div>
+    </ng-template>
+    
+  </div>
